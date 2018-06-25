@@ -1,0 +1,28 @@
+<div class="outer-wrapper">
+  <div class="header-pane">
+    <div class="header-layout" [class.list-scroll]="isScrolling">
+      <div>
+        <span class="backBtn-outer">
+          <img src="assets/images/Slices/Back.png" class="backBtn" (click)="backBtn()">
+        </span>
+        <input *ngIf="showSearchBox" class="search-box" [(ngModel)]="searchText" placeholder="Search" autofocus>
+        <span *ngIf="!showSearchBox" (click)="searchButton()" class="srchBtn-outer">
+          <img src="assets/images/Slices/search.png" class="srchBtn">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="videoList" id="list" class="outer-pane" (scroll)="onWindowScroll($event)">
+    <div *ngFor="let item of videoList | filter :searchText" class="col-xs-4 col-sm-4 img-layout">
+      <div class="img-outer">
+        <img [src]="item.url" class="imgSrc">
+        <div class="imgName">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(videoList|filter:searchText).length==0" class="outer-pane col-xs-offset-2 col-xs-8">
+    <div class="container">
+      No records Found !
+    </div>
+  </div>
+</div>
